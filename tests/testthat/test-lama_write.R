@@ -1,0 +1,10 @@
+context("'lama_write'")
+dict <- lama_read(system.file("extdata", "dictionary_exams.yaml", package = "labelmachine")) 
+test_that("'lama_write' works", {
+  tmp <- tempfile(fileext = ".yaml")
+  lama_write(dict, tmp)
+  expect_identical(file.exists(tmp), TRUE)
+  dict_new <- lama_read(tmp)
+  expect_dictionary(dict_new)
+  expect_identical(dict_new, dict)
+})
